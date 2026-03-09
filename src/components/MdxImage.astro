@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  src?: ImageMetadata;
+  alt: string;
+  caption?: string;
+  align?: "left" | "right";
+  widthClass?: string;
+  width?: number;
+  height?: number;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  src,
+  alt,
+  caption,
+  align = "right",
+  widthClass = "w-full md:w-80",
+  width = 960,
+  height = 720,
+  loading = "lazy",
+} = Astro.props;
+
+const alignClass = align === "left" ? "md:float-left md:mr-4" : "md:float-right md:ml-4";
+---
+
+<figure class={`my-2 ${widthClass} ${alignClass}`}>
+  {
+    src ? (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        class="h-auto w-full rounded-lg border border-leaf/15 shadow-sm"
+      />
+    ) : (
+      <div class="skeleton-image aspect-[4/3]">
+        <span>{alt}</span>
+      </div>
+    )
+  }
+  {caption && <figcaption class="mt-2 text-xs text-earth/90">{caption}</figcaption>}
+</figure>
