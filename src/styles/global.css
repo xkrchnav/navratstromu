@@ -36,6 +36,50 @@ a {
   @apply bg-green-100/60 border-2 border-dashed border-green-400 rounded-lg flex items-center justify-center text-base font-medium text-earth;
 }
 
+.mdx-image {
+  width: min(100%, 60vw);
+  max-width: 760px;
+  margin: 1.5rem auto;
+}
+
+.mdx-image__media {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(74 102 67 / 0.15);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+}
+
+.mdx-image__caption {
+  margin-top: 0.45rem;
+  font-size: 0.78rem;
+  color: rgb(121 88 54 / 0.9);
+  text-align: center;
+}
+
+.mdx-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  width: min(100%, 60vw);
+  max-width: 760px;
+  margin: 1.5rem auto;
+}
+
+.mdx-image-grid > .mdx-image {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .mdx-image,
+  .mdx-image-grid {
+    width: min(100%, 92vw);
+  }
+}
+
 :focus-visible {
   outline: 3px solid #d3544a;
   outline-offset: 2px;

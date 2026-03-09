@@ -3,46 +3,58 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
 interface Props {
-  src?: ImageMetadata;
-  alt: string;
+  src: ImageMetadata | string;
+  alt?: string;
   caption?: string;
-  align?: "left" | "right";
-  widthClass?: string;
   width?: number;
   height?: number;
   loading?: "lazy" | "eager";
+  class?: string;
 }
 
 const {
   src,
   alt,
   caption,
-  align = "right",
-  widthClass = "w-full md:w-80",
-  width = 960,
-  height = 720,
+  width,
+  height,
   loading = "lazy",
+  class: className = "",
 } = Astro.props;
 
-const alignClass = align === "left" ? "md:float-left md:mr-4" : "md:float-right md:ml-4";
+const getFileName = (value: ImageMetadata | string) => {
+  const sourcePath = typeof value === "string" ? value : value.src;
+  const rawSegment = sourcePath.split("/").pop() ?? "image";
+  const fileName = rawSegment.split("?")[0]?.split("#")[0] ?? "image";
+  return fileName.replace(/\.[^/.]+$/, "").replace(/[-_]+/g, " ").trim() || "image";
+};
+
+const fallbackText = getFileName(src);
+const resolvedAlt = alt?.trim() || fallbackText;
+const resolvedCaption = caption?.trim();
 ---
 
-<figure class={`my-2 ${widthClass} ${alignClass}`}>
+<figure class={`mdx-image ${className}`}>
   {
-    src ? (
-      <Image
+    typeof src === "string" ? (
+      <img
         src={src}
-        alt={alt}
+        alt={resolvedAlt}
+        loading={loading}
         width={width}
         height={height}
-        loading={loading}
-        class="h-auto w-full rounded-lg border border-leaf/15 shadow-sm"
+        class="mdx-image__media"
       />
     ) : (
-      <div class="skeleton-image aspect-[4/3]">
-        <span>{alt}</span>
-      </div>
+      <Image
+        src={src}
+        alt={resolvedAlt}
+        width={width ?? src.width}
+        height={height ?? src.height}
+        loading={loading}
+        class="mdx-image__media"
+      />
     )
   }
-  {caption && <figcaption class="mt-2 text-xs text-earth/90">{caption}</figcaption>}
+  {resolvedCaption && <figcaption class="mdx-image__caption">{resolvedCaption}</figcaption>}
 </figure>
