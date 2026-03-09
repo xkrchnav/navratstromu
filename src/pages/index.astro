@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import blogHeroDemoImage from "../assets/blog/stare-odrudy-demo.svg";
 
 const posts = await getCollection("blog");
 const featuredPosts = posts
@@ -67,8 +68,8 @@ const featuredPosts = posts
         featuredPosts.map((post) => (
           <article class="rounded-xl border border-leaf/20 bg-white/75 p-4 shadow-sm">
             <Image
-              src={post.data.previewImage}
-              alt={post.data.previewImageAlt}
+              src={post.data.previewImage ?? blogHeroDemoImage}
+              alt={post.data.previewImageAlt ?? post.data.title}
               width={1200}
               height={900}
               class="mb-4 aspect-video h-auto w-full rounded-lg border border-leaf/15 object-cover"

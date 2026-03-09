@@ -68,7 +68,6 @@ Parametry:
 
 ## Kde jsou demo obrázky
 
-- `src/assets/blog/jablon-demo.svg`
 - `src/assets/blog/stare-odrudy-demo.svg`
 
 Použití najdete v:
@@ -80,28 +79,43 @@ Použití najdete v:
 
 ## Nový článek = stačí přidat `.mdx` soubor
 
-Homepage náhledy článků (`src/pages/index.astro`) se teď berou automaticky z frontmatteru blog postu.
+Homepage náhledy článků (`src/pages/index.astro`) se berou automaticky z frontmatteru blog postu.
 
-Každý nový článek v `src/content/blog/*.mdx` musí mít tyto položky:
+### Povinné frontmatter položky
+
+Každý nový článek v `src/content/blog/*.mdx` musí mít tyto 3 položky:
 
 ```mdx
 ---
 title: Název článku
 description: Krátký perex článku
 pubDate: 2026-03-09
+---
+```
+
+### Volitelné frontmatter položky
+
+```mdx
+---
 author: Redakce Návrat stromků
 previewImage: ../../assets/blog/moje-fotka.jpg
 previewImageAlt: Popis náhledového obrázku
 ---
 ```
 
+Pravidla defaultů:
+
+- `author` je volitelný, default je **`Redakce Návrat stromků`**.
+- `previewImage` je volitelný, default je **`src/assets/blog/stare-odrudy-demo.svg`**.
+- `previewImageAlt` je volitelný; pokud není vyplněný, použije se automaticky hodnota z `title`.
+
 Tím pádem při přidání nového článku už nemusíte upravovat `index.astro`.
 Stačí:
 
-1. přidat obrázek do `src/assets/blog/`
-2. přidat nový `.mdx` do `src/content/blog/` s výše uvedeným frontmatterem
+1. přidat nový `.mdx` do `src/content/blog/` s povinným frontmatterem,
+2. volitelně přidat vlastní obrázek do `src/assets/blog/` a připojit ho přes `previewImage`.
 
-Náhled v sekci **„Z našeho blogu“** se vykreslí automaticky.
+Náhled v sekci **„Z našeho blogu“** i detail článku se vykreslí automaticky.
 
 ---
 
