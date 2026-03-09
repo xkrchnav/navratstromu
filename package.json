@@ -7,10 +7,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "npm run build && wrangler dev",
+    "astro": "astro",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/mdx": "^4.3.4",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.14.1",
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@tailwindcss/typography": "^0.5.19",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.71.0"
   }
 }
