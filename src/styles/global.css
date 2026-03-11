@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-paper: #F9F6F0;
+  --color-leaf: #4A6741;
+  --color-earth: #784A32;
+  --color-apple: #D3544A;
+  --font-heading: "Merriweather", serif;
+  --font-body: "Inter", sans-serif;
+}
 
 html {
   scroll-behavior: smooth;

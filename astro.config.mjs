@@ -1,8 +1,11 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import remarkGroupMdxImages from "./src/remark/remarkGroupMdxImages.mjs";
 
 export default defineConfig({
-  integrations: [tailwind(), mdx({ remarkPlugins: [remarkGroupMdxImages] })],
+  integrations: [mdx({ remarkPlugins: [remarkGroupMdxImages] })],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
